@@ -7,11 +7,11 @@ The implementation visualizes the result of applying NMF to a matrix using an ar
 # Usage
 You can use the following command to run the demo.
 ```
-python main.py --K [The number of clusters] --alg [EM or VB]
+python main.py --L [] --M [] --N [] --n_iteration [] --divergence []
 ```
 
 # Requirement
-Python: 3.7.12
-fire: 0.40
-matplotlib: 3.2.2
-numpy: 1.19.5
+Python: X.X.X
+fire: X.X.X
+matplotlib: X.X.X
+numpy: X.X.X
