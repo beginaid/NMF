@@ -63,10 +63,11 @@ class NMF():
                 self.cnt_iteration += 1
 
     def visualize_cost(self):
-        index = np.arange(self.cost.size-2)
-        plt.figure(figsize=(16,9))
         plt.rcParams["font.size"] = 18
-        plt.plot(index, self.cost[2:], color=(0.93,0.27,0.17))
+        fig, axes = plt.subplots(1, 1, figsize=(16,9))
+        index = np.arange(self.cost.size-2)
+        axes.plot(index, self.cost[2:], color=(0.93,0.27,0.17))
+        fig.savefig("./results/cost.png")
 
     def visualize_heatmap(self):
         fig, axes = plt.subplots(1, 2, figsize=(16,9))
@@ -75,4 +76,4 @@ class NMF():
         axes[0].axis("off")
         axes[1].imshow(self.X, cmap="inferno")
         axes[1].axis("off")
-        plt.show()
+        fig.savefig("./results/heatmap.png")
