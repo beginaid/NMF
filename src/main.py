@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import fire
 import NMF
@@ -24,6 +25,8 @@ def main(L, M, N, n_iteration, divergence):
     Note:
         The output is a result of plotting with matplotlib.
     """
+    if not os.path.isdir("results"):
+        os.makedirs("results")
     Y = create_data(L, N)
     model = NMF.NMF(Y, M)
     while True:
