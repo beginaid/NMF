@@ -1,7 +1,5 @@
 # NMF
 This directory publishes the sample implmentation of Euclidean-, I-divergence-, and IS-divergence-based NMF.
-
-# Description
 The implementation visualizes the result of applying NMF to a matrix using an arbitrary number of bases.
 
 # Requirement
