@@ -1,7 +1,7 @@
 # NMF
 <p align="center">
     <img
-        src="images/matrices.png"
+        src="images/matrices.jpg"
         alt="Observation and approximation matrices."
         title="Observation and approximation matrices."
         width=500px>
@@ -35,7 +35,7 @@ After the nmf container is up, a directory named "results" is created.
 The directory contains a graph describing the decreasing process of the divergence and a heatmap visualizing the observation and approximation matrices (shown at the beginning of README).
 <p align="center">
     <img
-        src="images/loss_curve.png"
+        src="images/loss_curve.jpg"
         alt="Loss curve while updating."
         title="Loss curve while updating."
         width=500px>
