@@ -6,7 +6,7 @@
         title="Observation and approximation matrices."
         width=500px>
 </p>
-This directory shows the sample implementation of Euclidean-, I-divergence-, and IS-divergence-based NMF.
+This repository shows the sample implementation of Euclidean-, I-divergence-, and IS-divergence-based NMF.
 The implementation visualizes the result of applying NMF to an observation matrix.
 You can use an arbitrary number of bases for the basis matrix.
 
