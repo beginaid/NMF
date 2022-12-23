@@ -1,5 +1,5 @@
 services:
-  nmf:
+  python3:
     build: .
     container_name: nmf
     working_dir: /usr/src/app
