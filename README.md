@@ -18,7 +18,7 @@ You can use an arbitrary number of bases for the basis matrix.
 You can use the following command to run the demo.
 ```
 git clone https://github.com/beginaid/NMF
-cd MMF
+cd NMF
 docker compose up -d --build
 ```
 All of the following options are managed by docker-compose.yml:
