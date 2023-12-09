@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 
-class NMF():
+
+class NMF:
     def __init__(self, Y, M):
         """Constructor.
         Args:
@@ -35,9 +36,13 @@ class NMF():
         Returns:
             None.
         """
-        self.H = np.random.uniform(low=1, high=10, size=(self.Y.shape[0], self.M)) # (L, M)
-        self.U = np.random.uniform(low=1, high=10, size=(self.M, self.Y.shape[1])) # (M, N)
-        self.X = self.H @ self.U # (L, N)
+        self.H = np.random.uniform(
+            low=1, high=10, size=(self.Y.shape[0], self.M)
+        )  # (L, M)
+        self.U = np.random.uniform(
+            low=1, high=10, size=(self.M, self.Y.shape[1])
+        )  # (M, N)
+        self.X = self.H @ self.U  # (L, N)
 
     def EU_divergence(self):
         """Calculate Euclidean distance.
@@ -46,7 +51,7 @@ class NMF():
         Returns:
             None.
         """
-        self.cost_tmp = ((self.X-self.Y)**2).mean()
+        self.cost_tmp = ((self.X - self.Y) ** 2).mean()
 
     def I_divergence(self):
         """Calculate I-divergence.
@@ -55,7 +60,9 @@ class NMF():
         Returns:
             None.
         """
-        self.cost_tmp = (self.Y*np.log(self.Y/(self.X+self.eps)+self.eps)-self.Y+self.X).mean()
+        self.cost_tmp = (
+            self.Y * np.log(self.Y / (self.X + self.eps) + self.eps) - self.Y + self.X
+        ).mean()
 
     def IS_divergence(self):
         """Calculate IS-divergence.
@@ -64,7 +71,11 @@ class NMF():
         Returns:
             None.
         """
-        self.cost_tmp = (self.Y/(self.X+self.eps)-np.log(self.Y/(self.X+self.eps)+self.eps)-1).mean()
+        self.cost_tmp = (
+            self.Y / (self.X + self.eps)
+            - np.log(self.Y / (self.X + self.eps) + self.eps)
+            - 1
+        ).mean()
 
     def EU_update(self):
         """Update H and U for Euclidean distance-based NMF.
@@ -83,8 +94,12 @@ class NMF():
         Returns:
             None.
         """
-        self.H *= ((self.Y / ((self.H @ self.U) + self.eps)) @ self.U.T)  / (self.U.sum(axis=1, keepdims=True).T + self.eps)
-        self.U *= ((self.Y / ((self.H @ self.U) + self.eps)).T @ self.H).T  / (self.H.sum(axis=0, keepdims=True).T + self.eps)
+        self.H *= ((self.Y / ((self.H @ self.U) + self.eps)) @ self.U.T) / (
+            self.U.sum(axis=1, keepdims=True).T + self.eps
+        )
+        self.U *= ((self.Y / ((self.H @ self.U) + self.eps)).T @ self.H).T / (
+            self.H.sum(axis=0, keepdims=True).T + self.eps
+        )
 
     def IS_update(self):
         """Update H and U for IS-divergence-based NMF.
@@ -93,8 +108,14 @@ class NMF():
         Returns:
             None.
         """
-        self.H *= np.sqrt(((self.Y / ((self.H @ self.U)**2 + self.eps)) @ self.U.T) / (self.U @ (1/((self.H @ self.U) + self.eps)).T + self.eps).T)
-        self.U *= np.sqrt(((self.Y / ((self.H @ self.U)**2 + self.eps)).T @ self.H).T / (self.H.T @ (1/((self.H @ self.U) + self.eps)) + self.eps))
+        self.H *= np.sqrt(
+            ((self.Y / ((self.H @ self.U) ** 2 + self.eps)) @ self.U.T)
+            / (self.U @ (1 / ((self.H @ self.U) + self.eps)).T + self.eps).T
+        )
+        self.U *= np.sqrt(
+            ((self.Y / ((self.H @ self.U) ** 2 + self.eps)).T @ self.H).T
+            / (self.H.T @ (1 / ((self.H @ self.U) + self.eps)) + self.eps)
+        )
 
     def execute(self, n_iteration, divergence):
         """Execute updating NMF.
@@ -105,20 +126,20 @@ class NMF():
             None.
         """
         while True:
-            if (divergence=="EU"):
+            if divergence == "EU":
                 self.EU_update()
                 self.EU_divergence()
-            elif (divergence=="I"):
+            elif divergence == "I":
                 self.I_update()
                 self.I_divergence()
-            elif (divergence=="IS"):
+            elif divergence == "IS":
                 self.IS_update()
                 self.IS_divergence()
             else:
                 print("Please select from EU, I, or IS for the divergence.")
                 sys.exit(1)
 
-            if (self.cnt_iteration >= n_iteration or self.cost_tmp > self.cost[-1]):
+            if self.cnt_iteration >= n_iteration or self.cost_tmp > self.cost[-1]:
                 print(f"====={self.cnt_iteration}回目でcostが悪化したため終了=====")
                 break
             else:
@@ -134,9 +155,9 @@ class NMF():
             None.
         """
         plt.rcParams["font.size"] = 18
-        fig, axes = plt.subplots(1, 1, figsize=(16,9))
-        index = np.arange(self.cost.size-2)
-        axes.plot(index, self.cost[2:], color=(0.93,0.27,0.17))
+        fig, axes = plt.subplots(1, 1, figsize=(16, 9))
+        index = np.arange(self.cost.size - 2)
+        axes.plot(index, self.cost[2:], color=(0.93, 0.27, 0.17))
         fig.savefig("./results/cost.png")
 
     def visualize_heatmap(self):
@@ -146,7 +167,7 @@ class NMF():
         Returns:
             None.
         """
-        fig, axes = plt.subplots(1, 2, figsize=(16,9))
+        fig, axes = plt.subplots(1, 2, figsize=(16, 9))
         fig.subplots_adjust(wspace=0.1, hspace=0.1)
         axes[0].imshow(self.Y, cmap="inferno")
         axes[0].axis("off")

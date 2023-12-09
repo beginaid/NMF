@@ -3,6 +3,7 @@ import numpy as np
 import fire
 import NMF
 
+
 def create_data(L, N):
     """Create a matrix to apply the NMF.
     Args:
@@ -14,6 +15,7 @@ def create_data(L, N):
         The range of values for each element of matrix Y is [1,10].
     """
     return np.random.randint(1, 10, (L, N))
+
 
 def main(L, M, N, n_iteration, divergence):
     """Execute NMF.
@@ -37,6 +39,7 @@ def main(L, M, N, n_iteration, divergence):
             break
     model.visualize_cost()
     model.visualize_heatmap()
+
 
 if __name__ == "__main__":
     fire.Fire(main)
